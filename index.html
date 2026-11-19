@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基督教宣道會徐澤林紀念小學AI友誼賽</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #070d19;
+  --surface: #101b2e;
+  --line: #2d4059;
+  --text: #edf6ff;
+  --muted: #a8bbd1;
+  --cyan: #66f4ed;
+  --violet: #c8adff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top, #14243d, transparent 594px), var(--bg);
+  color: var(--text);
+  font: 16px/1.55 system-ui, "Noto Sans TC", sans-serif;
+}
+header {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(34px, 6vw, 84px) 24px;
+  border-bottom: 1px solid #42616f;
+  background:
+    linear-gradient(90deg, #0a1426 12%, #0a1426af 58%, transparent),
+    repeating-linear-gradient(90deg, #6bf6ee13 0 1px, transparent 1px 36px),
+    repeating-linear-gradient(0deg, #6bf6ee13 0 1px, transparent 1px 36px),
+    radial-gradient(ellipse at 86% 24%, #215971, #151c38 66%);
+}
+header::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  right: 5vw;
+  top: -130px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 33%, #6af5ee40 33.2% 33.7%, transparent 34% 46%, #bfa5ff65 46.2% 46.7%, transparent 47% 61%, #6af5ee56 61.2% 62%, transparent 62.4%),
+    conic-gradient(from -80deg, transparent 65%, #66f4ed28 92%, transparent 96%);
+  opacity: .85;
+  pointer-events: none;
+}
+header div, main { max-width: 1200px; margin: auto; }
+header p { color: #c2d9ed; margin: 0; letter-spacing: .09em; font-weight: 650; }
+h1 { font-size: clamp(2.75rem, 7vw, 5.4rem); line-height: 1.08; margin: 12px 0 0; font-weight: 900; letter-spacing: .035em; }
+h1 span { color: var(--cyan); text-shadow: 0 0 34px #66f4ed55; }
+main { padding: 24px 20px 48px; }
+nav, .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.control-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.music-controls { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.music-controls label { color: var(--muted); }
+.music-controls input[type="range"] { width: 106px; padding: 0; accent-color: var(--cyan); }
+#music-toggle[aria-pressed="true"] { color: var(--cyan); border-color: #4e9b9d; }
+#music-status { color: var(--muted); }
+button, input, select { font: inherit; }
+button, select, input {
+  border: 1px solid #455c76;
+  border-radius: 8px;
+  background: #14243b;
+  color: var(--text);
+}
+button { cursor: pointer; padding: 9px 15px; font-weight: 720; min-height: 44px; transition: background .16s, border-color .16s; }
+button:hover:not(:disabled) { border-color: var(--cyan); background: #203a51; }
+:where(button, input, select, summary):focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+button:disabled { opacity: .48; cursor: default; }
+button.active, button.primary { color: #061e27; background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 22px #66f4ed30; }
+button:is(.active, .primary):hover:not(:disabled) { background: #a1fff9; }
+button[data-action="again"] { color: var(--cyan); border-color: #4e9b9d; }
+button.danger { color: #ffb5c3; }
+input, select { min-height: 44px; padding: 8px 12px; }
+input { width: 88px; }
+.summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+.total {
+  --accent: var(--cyan);
+  --tint: #143649;
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;
+  border: 1px solid #426078;
+  border-top: 3px solid var(--accent);
+  border-radius: 13px;
+  padding: 15px clamp(12px, 3vw, 24px);
+  color: var(--accent);
+  font-weight: 750;
+  background: linear-gradient(115deg, #131f34, var(--tint));
+}
+.total::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(135deg, transparent 0 15px, #d4edff12 15px 16px, transparent 16px 23px);
+  mask-image: linear-gradient(90deg, transparent 53%, black);
+  pointer-events: none;
+}
+.total.b { --accent: var(--violet); --tint: #30254a; }
+.total strong { display: block; font: 800 clamp(2.8rem, 7vw, 5.2rem)/1.08 ui-monospace, monospace; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 37%, transparent); }
+.panel { min-width: 0; background: linear-gradient(145deg, #16243a, var(--surface) 33%); border: 1px solid var(--line); border-radius: 14px; padding: clamp(12px, 2vw, 22px); margin-bottom: 14px; }
+.toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 0 15px; }
+.toolbar label { font-weight: 700; }
+.match { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: center; margin-top: 9px; }
+.team { background: #102f41; border: 1px solid #356274; border-left: 3px solid var(--cyan); border-radius: 9px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; color: var(--cyan); }
+.team.b { background: #2b2240; border-color: #65527a; border-left-color: var(--violet); color: var(--violet); }
+.team strong { font: 800 clamp(1.2rem, 3vw, 1.6rem)/1.4 ui-monospace, monospace; overflow-wrap: anywhere; }
+.team button { padding: 5px 12px; }
+.vs { color: var(--muted); font-weight: 800; }
+h2 { margin: 0 0 6px; font-size: 1.4rem; }
+p { margin: 7px 0; }
+.muted { color: var(--muted); }
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+td, th { text-align: left; border-bottom: 1px solid var(--line); padding: 9px 8px; }
+thead { background: #0c1628; color: #bdd4ef; }
+td:last-child, th:last-child { text-align: right; }
+.layout > section:last-child tbody td:last-child { font: 800 1.32rem ui-monospace, monospace; color: var(--cyan); }
+.status { min-height: 1.6em; color: var(--cyan); }
+details { margin-top: 12px; }
+summary { cursor: pointer; }
+.scoring { margin-top: 16px; }
+.round { padding-top: 8px; margin-top: 16px; border-top: 1px solid var(--line); }
+.round h3 { margin: 4px 0 8px; }
+.games th, .games td { padding: 7px 5px; }
+.games thead th:nth-child(2) { color: var(--cyan); }
+.games thead th:nth-child(3) { color: var(--violet); }
+.game-score { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.game-score strong { font: 800 1.3rem ui-monospace, monospace; }
+.games button { padding: 6px 8px; }
+dialog { width: min(92vw, 460px); padding: 22px; border: 1px solid #61809f; border-radius: 14px; color: inherit; background: var(--surface); }
+dialog::backdrop { background: #030813cc; }
+dialog .actions { margin-top: 18px; justify-content: flex-end; }
+@media (max-width: 760px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .team { display: grid; justify-content: stretch; }
+  .team button { width: 100%; }
+  header::after { right: -210px; opacity: .5; }
+}
+@media (max-width: 430px) {
+  main { padding-inline: 12px; }
+  .summary { gap: 8px; }
+  .total { min-height: 110px; }
+  nav button { flex: 1 1 100%; text-align: left; }
+  .games button { padding-inline: 4px; font-size: .875rem; }
+}
+@media (prefers-reduced-motion: reduce) { button { transition: none; } }
+</style>
+<script src="./music.js" defer></script>
+</head>
+<body>
+<header><div><p>基督教宣道會徐澤林紀念小學</p><h1><span>AI</span> 友誼賽</h1></div></header>
+<main>
+<div class="control-bar">
+<nav aria-label="比賽玩法"><button data-action="fixed">玩法一 · 固定對戰</button><button data-action="draw">玩法二 · 隨機抽籤</button></nav>
+<div class="music-controls">
+  <button id="music-toggle" type="button" aria-pressed="false">播放音樂</button>
+  <label for="music-volume">音量</label>
+  <input id="music-volume" type="range" min="0" max="100" value="45">
+  <span id="music-status" role="status"></span>
+</div>
+</div>
+<div id="view"></div>
+<div class="actions"><button data-action="add">＋ 增加一對隊伍</button><button data-action="undo">復原上次計分</button><button class="danger" data-action="reset">重置本玩法</button><button class="danger" data-action="reset-all">重置所有資料</button></div>
+<p class="status" role="status" id="status"></p>
+<p class="muted">隊伍名單兩種玩法共用。分數及賽果儲存在目前瀏覽器，兩種玩法分開計算。</p>
+</main>
+<dialog id="confirmation" aria-labelledby="confirmation-title" aria-describedby="confirmation-message">
+  <h2 id="confirmation-title"></h2>
+  <p id="confirmation-message"></p>
+  <div class="actions">
+    <button data-action="cancel" autofocus>取消</button>
+    <button class="danger" data-action="commit" id="confirmation-commit">確認</button>
+  </div>
+</dialog>
+<script>
+const key = 'ai-friendly-scoreboard-v1';
+const emptyFixed = () => ({ scores: {}, log: [] });
+const emptyDraw = () => ({ matches: [] });
+const initial = () => ({ count: 5, mode: 'fixed', fixed: emptyFixed(), draw: emptyDraw() });
+let state = initial();
+try { state = JSON.parse(localStorage.getItem(key)) ?? state; } catch {}
+let points = 1;
+let requestedMatches = 2;
+let requestedRounds = 1;
+const view = document.querySelector('#view');
+const status = document.querySelector('#status');
+const confirmation = document.querySelector('#confirmation');
+let confirmedAction;
+function ask(title, message, label, action) {
+  document.querySelector('#confirmation-title').textContent = title;
+  document.querySelector('#confirmation-message').textContent = message;
+  document.querySelector('#confirmation-commit').textContent = label;
+  confirmedAction = action;
+  confirmation.showModal();
+}
+const includesTeam = (match, team) => match.a === team || match.b === team;
+const isFinished = match => Boolean(match.finished || match.winner);
+const canUndoMatch = match => (match.winner || match.entries?.length) && !retired().includes(match.a) && !retired().includes(match.b);
+
+const ids = () => Array.from({ length: state.count }, (_, index) => index + 1);
+const retired = () => state.retired ?? [];
+const activeTeams = group => ids().map(n => group + n).filter(team => !retired().includes(team));
+const fixedScore = team => state.fixed.scores[team] ?? 0;
+function currentBatch() {
+  const last = state.draw.matches.at(-1);
+  if (!last) return [];
+  if (last.batch !== undefined) return state.draw.matches.filter(match => match.batch === last.batch);
+  if (last.round === undefined) return [last];
+  return state.draw.matches.filter(match => match.round === last.round);
+}
+function lastScoredMatch(batch) {
+  return batch.reduce((latest, match, index) => {
+    const order = match.entries?.at(-1)?.order ?? match.scoredAt ?? index + 1;
+    return canUndoMatch(match) && order > latest.order ? { match, order } : latest;
+  }, { order: 0 });
+}
+const drawCycle = () => state.draw.cycle ?? 1;
+function drawnTeams() {
+  const matches = state.draw.matches.filter(match => (match.cycle ?? 1) === drawCycle());
+  return new Set([...(state.draw.usedTeams ?? []), ...matches.flatMap(match => [match.a, match.b])]);
+}
+function availableTeams() {
+  const drawn = drawnTeams();
+  return ['A', 'B'].map(group => activeTeams(group).filter(team => !drawn.has(team)));
+}
+function repeatedTeams() {
+  const seen = new Set();
+  const repeated = new Set();
+  for (const [match] of pairingGroups(state.draw.matches)) {
+    for (const team of [match.a, match.b]) {
+      const key = (match.cycle ?? 1) + '/' + team;
+      if (seen.has(key)) repeated.add(team);
+      seen.add(key);
+    }
+  }
+  return [...repeated].sort();
+}
+function shuffle(items) {
+  for (let index = items.length - 1; index > 0; index--) {
+    const choice = Math.floor(Math.random() * (index + 1));
+    [items[index], items[choice]] = [items[choice], items[index]];
+  }
+  return items;
+}
+function gameScore(match, team) {
+  const previous = match.winner === team ? match.points : 0;
+  return (match.entries ?? []).reduce((sum, entry) => sum + (entry.team === team ? entry.points : 0), previous);
+}
+function pairingGroups(matches) {
+  const groups = new Map();
+  for (const match of matches) {
+    const key = (match.round ?? state.draw.matches.indexOf(match) + 1) + '/' + match.a + '/' + match.b;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(match);
+  }
+  return [...groups.values()];
+}
+function drawScoreCell(match, team, matchIndex) {
+  const score = '<strong>' + gameScore(match, team) + '</strong>';
+  const button = isFinished(match) ? '' : '<button data-action="score" data-team="' + team +
+    '" data-match-index="' + matchIndex + '" aria-label="' + team + ' 勝出並加分">加分</button>';
+  return '<td><div class="game-score">' + score + button + '</div></td>';
+}
+function ranks() {
+  const scores = Object.fromEntries([...activeTeams('A'), ...activeTeams('B')].map(team => [team, 0]));
+  for (const match of state.draw.matches) {
+    for (const team of [match.a, match.b]) {
+      if (Object.hasOwn(scores, team)) scores[team] += gameScore(match, team);
+    }
+  }
+  return Object.entries(scores).sort((a, b) => b[1] - a[1]).map(([team, score], i, rows) =>
+    [rows.findIndex(row => row[1] === score) + 1, team, score]);
+}
+const pointsInput = () => '<label for="points">本回合勝方得分</label><input id="points" type="number" min="1" max="999999" step="1" value="' + points + '">';
+function teamCard(team, score, disabled) {
+  if (retired().includes(team)) return '<div class="team ' + team[0].toLowerCase() + '">隊伍已移除</div>';
+  return '<div class="team ' + team[0].toLowerCase() + '"><strong>' + team + (score === null ? '' : ' · ' + score) + '</strong><button data-action="score" data-team="' + team + '" aria-label="' + team + ' 勝出並加分"' + (disabled ? ' disabled' : '') + '>勝出加分</button></div>';
+}
+function fixedMatchRow(a, b) {
+  return '<div class="match">' + teamCard(a, fixedScore(a), retired().includes(b)) + '<span class="vs">對</span>' + teamCard(b, fixedScore(b), retired().includes(a)) + '</div>';
+}
+function render() {
+  const fixed = state.mode === 'fixed';
+  for (const button of document.querySelectorAll('nav button')) {
+    const selected = button.dataset.action === state.mode;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-pressed', selected);
+  }
+  const batch = currentBatch();
+  document.querySelector('[data-action="undo"]').disabled = fixed ? !state.fixed.log.length : !batch.some(canUndoMatch);
+  if (fixed) {
+    const total = group => activeTeams(group).reduce((sum, team) => sum + fixedScore(team), 0);
+    const teams = [...activeTeams('A'), ...activeTeams('B')];
+    const deleteControls = teams.length ? '<div class="toolbar"><label for="delete-team">刪除隊伍</label><select id="delete-team"><option value="">請選擇隊伍</option>' +
+      teams.map(team => '<option>' + team + '</option>').join('') +
+      '</select><button class="danger" data-action="delete" disabled>刪除所選隊伍</button></div>' : '';
+    view.innerHTML = '<section class="summary" aria-label="小組總分"><div class="total">A 組總分<strong>' + total('A') + '</strong></div><div class="total b">B 組總分<strong>' + total('B') + '</strong></div></section><section class="panel"><h2>固定對戰</h2><div class="toolbar">' + pointsInput() + '</div>' + deleteControls + ids().filter(n => !retired().includes('A' + n) || !retired().includes('B' + n)).map(n => fixedMatchRow('A' + n, 'B' + n)).join('') + '</section>';
+    return;
+  }
+  const [availableA, availableB] = availableTeams();
+  const maxRounds = Math.min(availableA.length, availableB.length);
+  const fullCapacity = Math.min(activeTeams('A').length, activeTeams('B').length);
+  const repeated = repeatedTeams();
+  const legacyNotice = repeated.length ? '<p class="muted">舊賽程有重覆出場隊伍（' + repeated.join('、') +
+    '）。賽果已保留。如要按新規則重新排賽，請按「重置本玩法」。</p>' : '';
+  const unfinished = batch.some(match => !isFinished(match));
+  const drawControls = fullCapacity ? '<label for="round-count">抽籤輪數</label><input id="round-count" type="number" required min="1" max="' + fullCapacity + '" step="1" value="' + Math.min(requestedRounds, fullCapacity) + '"><label for="match-count">每輪場數</label><input id="match-count" type="number" required min="1" max="999" step="1" value="' +
+    requestedMatches + '"><button class="primary" data-action="pick"' + (unfinished || !maxRounds ? ' disabled' : '') + '>抽出對決</button>' + (drawnTeams().size ? '<button data-action="again"' + (unfinished ? ' disabled' : '') + '>再抽籤</button>' : '') : '';
+  const roundResults = pairingGroups(batch).map(matches => {
+    const first = matches[0];
+    const number = first.round ?? state.draw.matches.indexOf(first) + 1;
+    const games = matches.map((match, index) => {
+      const matchIndex = batch.indexOf(match);
+      const finish = isFinished(match) ? '已完成' :
+        '<button data-action="finish" data-match-index="' + matchIndex + '">完成本場</button>';
+      return '<tr><th scope="row">第 ' + (match.game ?? index + 1) + ' 場</th>' +
+        drawScoreCell(match, match.a, matchIndex) + drawScoreCell(match, match.b, matchIndex) + '<td>' + finish + '</td></tr>';
+    }).join('');
+    return '<section class="round"><h3>第 ' + number + ' 輪</h3><table class="games"><thead><tr><th scope="col">場次</th>' +
+      '<th scope="col">' + first.a + '</th><th scope="col">' + first.b + '</th><th scope="col">狀態</th></tr></thead><tbody>' + games + '</tbody></table></section>';
+  }).join('');
+  const history = state.draw.matches.filter(isFinished);
+  const historyRows = pairingGroups(history).reverse().map(matches => {
+    const first = matches[0];
+    const scores = matches.map(match => gameScore(match, match.a) + ' 比 ' + gameScore(match, match.b)).join('、');
+    return '<li>' + first.a + ' 對 ' + first.b + '（' + scores + '）</li>';
+  }).join('');
+  const rows = ranks().map(([rank, team, score]) => '<tr><td>' + rank + '</td><td>' + team + '</td><td>' + score + '</td></tr>').join('');
+  view.innerHTML = '<div class="layout"><section class="panel"><h2>隨機抽籤</h2><p class="muted">可一次抽出多輪，每輪只抽出一對隊伍（A 組對 B 組），由同兩隊按指定場數交手，每場可多次為勝方加分，分數累積至各隊。計分完畢後按「完成本場」。每隊在每批抽籤只出場一輪。按「再抽籤」可讓所有隊伍重新參加，原有分數會保留。</p>' + legacyNotice + '<div class="toolbar">' + drawControls + '<span>未出場隊伍：A 組 ' + availableA.length + ' 隊、B 組 ' + availableB.length + ' 隊 · 可再抽 ' + maxRounds + ' 輪</span></div>' +
+    (batch.length ? '<div class="scoring">' + (unfinished ? '<div class="toolbar">' + pointsInput() + '</div>' : '') + roundResults + '</div>' : '<p class="muted">輸入抽籤輪數及每輪場數，再按「抽出對決」。</p>') +
+    (history.length ? '<details><summary>已完成場次（' + history.length + '）</summary><ul>' + historyRows + '</ul></details>' : '') +
+    '</section><section class="panel"><h2>隊伍排名榜</h2><table><thead><tr><th>排名</th><th>隊伍</th><th>累計分數</th></tr></thead><tbody>' + rows + '</tbody></table></section></div>';
+}
+function save(message) {
+  try { localStorage.setItem(key, JSON.stringify(state)); }
+  catch { message += ' 此瀏覽器未能儲存紀錄。'; }
+  render();
+  status.textContent = message;
+}
+document.addEventListener('input', event => {
+  const input = event.target;
+  if (input.id === 'points') points = input.value === '' ? '' : Number(input.value);
+  if (input.id === 'round-count' && input.validity.valid) requestedRounds = Number(input.value);
+  if (input.id === 'match-count' && input.validity.valid) requestedMatches = Number(input.value);
+});
+document.addEventListener('change', event => {
+  if (event.target.id === 'delete-team') document.querySelector('[data-action="delete"]').disabled = !event.target.value;
+});
+document.addEventListener('click', event => {
+  const button = event.target.closest('button[data-action]');
+  if (!button || button.disabled) return;
+  const action = button.dataset.action;
+  const fixed = state.mode === 'fixed';
+  const batch = currentBatch();
+  if (action === 'cancel') {
+    confirmation.close();
+  } else if (action === 'commit') {
+    confirmation.close();
+    confirmedAction();
+  } else if (action === 'fixed' || action === 'draw') {
+    state.mode = action;
+    save('');
+  } else if (action === 'add') {
+    state.count += 1;
+    save('已新增 A' + state.count + ' 和 B' + state.count + '。');
+  } else if (action === 'delete') {
+    if (!fixed) return;
+    const team = document.querySelector('#delete-team').value;
+    if (!activeTeams(team[0]).includes(team)) return;
+    const pending = state.draw.matches.filter(match => !isFinished(match) && includesTeam(match, team)).length;
+    const warning = pending ? ' 該隊有 ' + pending + ' 場未計分的抽籤賽事，刪除後會取消。' : '';
+    ask('刪除 ' + team, '該隊將從兩種玩法移除，固定對戰分數會刪除，已完成的抽籤賽果仍可查閱。' + warning, '確認刪除', () => {
+      state.retired = [...retired(), team];
+      state.fixed.log = state.fixed.log.filter(entry => entry.team !== team);
+      delete state.fixed.scores[team];
+      state.draw.usedTeams = [...drawnTeams()];
+      state.draw.matches = state.draw.matches.filter(match => isFinished(match) || !includesTeam(match, team));
+      save('已刪除 ' + team + '。' + (pending ? ' 已取消 ' + pending + ' 場未計分賽事。' : ''));
+    });
+  } else if (action === 'pick' || action === 'again') {
+    const again = action === 'again';
+    if (batch.some(match => !isFinished(match))) return;
+    const roundsInput = document.querySelector('#round-count');
+    const countInput = document.querySelector('#match-count');
+    if (!roundsInput?.reportValidity() || !countInput?.reportValidity()) return;
+    const rounds = Number(roundsInput.value);
+    const count = Number(countInput.value);
+    const teams = again ? ['A', 'B'].map(activeTeams) : availableTeams();
+    const [availableA, availableB] = teams.map(shuffle);
+    if (!Number.isInteger(rounds) || rounds < 1) return;
+    if (rounds > Math.min(availableA.length, availableB.length)) {
+      status.textContent = '本批未出場的隊伍不足。請減少輪數，或按「再抽籤」開始新一批。';
+      return;
+    }
+    if (!Number.isInteger(count) || count < 1 || count > 999) return;
+    if (again) {
+      state.draw.cycle = drawCycle() + 1;
+      state.draw.usedTeams = [];
+    }
+    const cycle = drawCycle();
+    const firstRound = Math.max(state.draw.lastRound ?? 0, batch.at(-1)?.round ?? state.draw.matches.length) + 1;
+    for (let offset = 0; offset < rounds; offset++) {
+      const a = availableA[offset];
+      const b = availableB[offset];
+      const round = firstRound + offset;
+      for (let game = 1; game <= count; game++) {
+        state.draw.matches.push({ a, b, round, batch: firstRound, game, cycle });
+      }
+    }
+    state.draw.usedTeams = [...drawnTeams()];
+    state.draw.lastRound = firstRound + rounds - 1;
+    save((again ? '已重新抽籤，分數繼續累積。' : '') + '已抽出 ' + rounds + ' 輪，每輪 ' + count + ' 場，共 ' + rounds * count + ' 場。');
+  } else if (action === 'finish') {
+    const match = batch[Number(button.dataset.matchIndex)];
+    if (!match || isFinished(match)) return;
+    match.finished = true;
+    save('已完成本場。');
+  } else if (action === 'score') {
+    if (!document.querySelector('#points').reportValidity() || !Number.isInteger(points) || points < 1) {
+      status.textContent = '請輸入 1 至 999999 的整數。';
+      return;
+    }
+    const team = button.dataset.team;
+    if (fixed) {
+      state.fixed.scores[team] = fixedScore(team) + points;
+      state.fixed.log.push({ team, points });
+    } else {
+      const match = batch[Number(button.dataset.matchIndex)];
+      if (!match || isFinished(match) || !includesTeam(match, team)) return;
+      const order = lastScoredMatch(batch).order + 1;
+      (match.entries ??= []).push({ team, points, order });
+    }
+    save(team + ' 加 ' + points + ' 分。');
+    const next = fixed ? document.querySelector('[data-team="' + team + '"]') : document.querySelector('[data-action="score"]') ?? document.querySelector('[data-action="pick"]:enabled');
+    (next ?? document.querySelector('[data-action="undo"]')).focus();
+  } else if (action === 'undo') {
+    if (fixed) {
+      const last = state.fixed.log.pop();
+      state.fixed.scores[last.team] -= last.points;
+    } else {
+      const { match } = lastScoredMatch(batch);
+      if (!match) return;
+      if (match.entries?.length) match.entries.pop();
+      else {
+        delete match.winner;
+        delete match.points;
+        delete match.scoredAt;
+      }
+      delete match.finished;
+    }
+    save('已復原上次計分。');
+  } else if (action === 'reset') {
+    ask('重置本玩法', '清除目前玩法的分數及對戰紀錄，隊伍名單會保留。', '確認重置本玩法', () => {
+      state[state.mode] = fixed ? emptyFixed() : emptyDraw();
+      save('本玩法已重置。');
+    });
+  } else if (action === 'reset-all') {
+    ask('重置所有資料', '兩種玩法的分數、排名及抽籤紀錄將全部清除，隊伍名單會回到 A1 至 A5、B1 至 B5。', '確認重置所有資料', () => {
+      state = initial();
+      points = 1;
+      requestedMatches = 2;
+      requestedRounds = 1;
+      save('已重置所有資料，並恢復初始 10 隊。');
+    });
+  }
+});
+render();
+</script>
+</body>
+</html>
